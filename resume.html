@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lance Qin - Interactive Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a192f;
+            --light-navy: #112240;
+            --lightest-navy: #233554;
+            --slate: #8892b0;
+            --light-slate: #a8b2d1;
+            --lightest-slate: #ccd6f6;
+            --white: #e6f1ff;
+            --green: #64ffda;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--navy);
+            color: var(--slate);
+            margin: 0;
+            padding: 0;
+            line-height: 1.3;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background-color: var(--navy);
+            padding: 40px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .main-content {
+            flex-grow: 1;
+            margin-left: 380px;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: var(--lightest-slate);
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        h2 {
+            color: var(--slate);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 50px;
+        }
+        
+        .nav-links li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--lightest-slate);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--white);
+        }
+        
+        .nav-line {
+            width: 50px;
+            height: 1px;
+            background-color: var(--light-slate);
+            margin-right: 20px;
+        }
+        
+        section {
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        h3 {
+            color: var(--lightest-slate);
+            font-size: 2rem;
+            border-bottom: 1px solid var(--lightest-navy);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .experience-item, .project-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .experience-item h4, .project-item h4 {
+            color: var(--light-slate);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .experience-item p, .project-item p {
+            margin: 5px 0;
+        }
+        
+        .date {
+            font-style: italic;
+            color: var(--light-slate);
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        .nvda-valuation {
+            cursor: pointer;
+            color: var(--light-slate);
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            color: var(--light-slate);
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .social-links a:hover {
+            color: var(--lightest-slate);
+        }
+
+        .highlight-box {
+            position: absolute;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            background-color: rgba(100, 255, 218, 0.1);
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.1);
+        }
+
+        .experience-item:hover, .project-item:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="highlight-box"></div>
+    <div class="container">
+        <aside class="sidebar">
+            <h1>Lance Qin</h1>
+            <h2>Master of Finance Candidate | Data-Driven Analyst</h2>
+            <nav>
+                <ul class="nav-links">
+                    <li><span class="nav-line"></span><a href="#about">About</a></li>
+                    <li><span class="nav-line"></span><a href="#education">Education</a></li>
+                    <li><span class="nav-line"></span><a href="#experience">Experience</a></li>
+                    <li><span class="nav-line"></span><a href="#projects">Projects</a></li>
+                    <li><span class="nav-line"></span><a href="#skills">Skills</a></li>
+                </ul>
+            </nav>
+            <div class="social-links">
+                <a href="#" target="_blank">GitHub</a>
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">Email</a>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <section id="about">
+                <h3>About Me</h3>
+                <p>I am a Master of Finance candidate with a strong background in data analysis and financial modeling. My passion lies in leveraging data-driven insights to solve complex financial problems and drive strategic decision-making.</p>
+            </section>
+            
+            <section id="education">
+                <h3>Education</h3>
+                <div class="experience-item">
+                    <h4>Johns Hopkins University, Carey Business School</h4>
+                    <p class="date">Aug 2023 – Sep 2024</p>
+                    <p>Masters of Finance</p>
+                    <p>Related Courses: Financial Modeling and Valuation(A), Derivatives(A), Advanced Hedge Fund Strategies(A), Big Data Machine Learning(B+), Advanced Portfolio Management(A-)</p>
+                </div>
+                <div class="experience-item">
+                    <h4>Shanghai University of International Business and Economics</h4>
+                    <p class="date">Oct 2019 – Jul 2023</p>
+                    <p>Bachelors of Finance</p>
+                    <p>Major GPA: 3.87/4.00 (Top 3%) Overall GPA: 3.60/4.00</p>
+                    <p>Related Courses: Statistics (A), Econometrics (A), Financial Engineering (A), International Finance (A), Investment (A), Accounting (A), Macroeconomics(B), Microeconomics(A)</p>
+                </div>
+            </section>
+            
+            <section id="experience">
+                <h3>Experience</h3>
+                <div class="experience-item">
+                    <h4>Zhonghua Certified Public Accountants LLP</h4>
+                    <p class="date">Mar 2023 – Jun 2023</p>
+                    <p>Consulting Department Intern, Shanghai, China</p>
+                    <ul>
+                        <li>Conducted due diligence for a data center acquisition, which involved collecting, organizing, and analyzing relevant information, creating tables, proposing recommendations, and completing a 46-page financial report.</li>
+                        <li>Assisted colleagues in the audit department with the annual review report of an internet company.</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <h4>CITIC Securities Co., Ltd</h4>
+                    <p class="date">Sep 2022 – Feb 2023</p>
+                    <p>Investment Banking Intern, Shanghai, China</p>
+                    <ul>
+                        <li>Actively participated in the site work for the GEM IPO of a new energy enterprise, advancing to the core meeting stage. Assisted in gathering and organizing data from shareholder and business personnel interviews.</li>
+                        <li>Utilized financial platforms like Wind to produce detailed analysis reports, and supported the drafting of business and technical sections of the IPO prospectus.</li>
+                        <li>Conducted valuation analyses of comparable companies for financial consultancy projects, enhancing the investment value analysis report with precise and actionable insights.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="projects">
+                <h3>Projects</h3>
+                <div class="project-item">
+                    <h4>NVDA Valuation</h4>
+                    <ul>
+                        <li>Synthesized detailed data from NVIDIA's recent three-year 10-K reports and current market trends to project financial statements and forecast five-year Free Cash Flow (FCF).</li>
+                        <li>Applied the Discounted Cash Flow (DCF) model to determine NVIDIA's fair stock price range, presented in a concise 7-page research report.</li>
+                    </ul>
+                </div>
+                <div class="project-item">
+                    <h4>Portfolio Optimization Model</h4>
+                    <ul>
+                        <li>Developed and iteratively refined a portfolio optimization model in Python, recommending investment diversification and size rotation strategies based on historical volatility and correlation coefficients across various asset classes, achieving optimal returns through rigorous back-testing.</li>
+                        <li>Analyzed the impact of FDA drug approvals on small-cap pharmaceutical company stock prices over the past three years, identifying a consistent 'sell the news' phenomenon, and formulated strategic investment recommendations accordingly.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="skills">
+                <h3>Skills</h3>
+                <p><strong>Tools:</strong> Python, SQL, Bloomberg Terminal, Wind Terminal, Crystal Ball, Excel, PPT</p>
+                <p><strong>Analytical Skills:</strong> Statistical Analysis, Data Mining, Optimization, Back-Testing</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const highlightBox = document.querySelector(".highlight-box");
+        const sections = document.querySelectorAll("section");
+        const items = document.querySelectorAll(".experience-item, .project-item");
+
+        function showHighlight(element) {
+            const rect = element.getBoundingClientRect();
+            highlightBox.style.width = `${rect.width}px`;
+            highlightBox.style.height = `${rect.height}px`;
+            highlightBox.style.left = `${rect.left}px`;
+            highlightBox.style.top = `${rect.top}px`;
+            highlightBox.style.opacity = "1";
+        }
+
+        function hideHighlight() {
+            highlightBox.style.opacity = "0";
+        }
+
+        sections.forEach(section => {
+            section.addEventListener("mouseenter", () => showHighlight(section));
+            section.addEventListener("mouseleave", hideHighlight);
+        });
+
+        items.forEach(item => {
+            item.addEventListener("mouseenter", (e) => {
+                e.stopPropagation();
+                showHighlight(item);
+            });
+            item.addEventListener("mouseleave", (e) => {
+                e.stopPropagation();
+                hideHighlight();
+            });
+        });
+    </script>
+</body>
+</html>
