@@ -93,6 +93,7 @@
         section {
             margin-bottom: 60px;
             position: relative;
+            z-index: 0;
         }
         
         h3 {
@@ -108,6 +109,8 @@
             padding: 20px;
             border-radius: 4px;
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 0;
         }
         
         .experience-item h4, .project-item h4 {
@@ -155,18 +158,26 @@
             border-radius: 4px;
             transition: all 0.3s ease;
             pointer-events: none;
-            z-index: 9999;
             opacity: 0;
-            background-color: rgba(100, 255, 218, 0.1);
-            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.1);
+            background-color: rgba(100, 255, 218, 0.05);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
         }
 
-        .experience-item:hover, .project-item:hover {
-            background-color: rgba(100, 255, 218, 0.1);
+        .flashlight {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 80%);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: overlay;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
+    <div class="flashlight"></div>
     <div class="highlight-box"></div>
     <div class="container">
         <aside class="sidebar">
@@ -232,6 +243,37 @@
                         <li>Conducted valuation analyses of comparable companies for financial consultancy projects, enhancing the investment value analysis report with precise and actionable insights.</li>
                     </ul>
                 </div>
+                <div class="experience-item">
+                    <h4>Yinhua Fund</h4>
+                    <p class="date">Jun 2022 – Aug 2022</p>
+                    <p>Private Equity Intern, Shanghai, China</p>
+                    <ul>
+                        <li>Participated in evaluating an investment opportunity in COSCO Shipping Holdings (601919) by conducting in-depth financial modeling and company valuation, providing critical data support to senior analysts for the investment decision-making process.</li>
+                        <li>Assisted in preparing investment memoranda and presentations for internal investment committee meetings, focusing on the rationale for investing in COSCO, potential returns, and risk assessments.</li>
+                        <li>Collaborated with cross-functional teams during the due diligence process, including financial, legal, and operational reviews of COSCO, ensuring comprehensive risk identification and assessment.</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <h4>Sinolink Securities Co., Ltd</h4>
+                    <p class="date">Jul 2021 – Aug 2021</p>
+                    <p>Industry Analyst Intern, Chongqing, China</p>
+                    <ul>
+                        <li>Independently completed a financial analysis and research report on the container transportation industry, providing specific investment recommendations by considering both short-term and long-term profit margins and potential risks.</li>
+                        <li>Acquired and organized trading data, financial data, and risk analysis through the Wind financial terminal for colleagues' reference.</li>
+                        <li>Consolidated, filed, and reviewed daily relevant information, producing weekly reports.</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <h4>China Securities Co., Ltd</h4>
+                    <p class="date">Jun 2020 – Sep 2020</p>
+                    <p>Wealth Management Intern, Chongqing, China</p>
+                    <ul>
+                        <li>Participated in client meetings and calls, preparing materials and summaries to enhance communication and relationship management.</li>
+                        <li>Assisted in reviewing and analyzing client investment portfolios, conducting detailed market research to support the development of tailored investment strategies aligned with client financial goals and risk profiles.</li>
+                        <li>Conducted market research under guidance and compiled daily news summaries on stock market trends and economic indicators to assist advisors in making informed decisions.</li>
+                        <li>Supported the wealth management team in managing and analyzing portfolios, tracking and reporting on the performance of portfolios totaling over 2 Million RMB.</li>
+                    </ul>
+                </div>
             </section>
             
             <section id="projects">
@@ -262,6 +304,7 @@
 
     <script>
         const highlightBox = document.querySelector(".highlight-box");
+        const flashlight = document.querySelector(".flashlight");
         const sections = document.querySelectorAll("section");
         const items = document.querySelectorAll(".experience-item, .project-item");
 
@@ -269,29 +312,54 @@
             const rect = element.getBoundingClientRect();
             highlightBox.style.width = `${rect.width}px`;
             highlightBox.style.height = `${rect.height}px`;
-            highlightBox.style.left = `${rect.left}px`;
-            highlightBox.style.top = `${rect.top}px`;
+            highlightBox.style.left = `${rect.left + window.scrollX}px`;
+            highlightBox.style.top = `${rect.top + window.scrollY}px`;
             highlightBox.style.opacity = "1";
+            highlightBox.style.zIndex = "1";
         }
 
         function hideHighlight() {
             highlightBox.style.opacity = "0";
+            highlightBox.style.zIndex = "-1";
+        }
+
+        function handleMouseEnter(e) {
+            const target = e.target.closest('section, .experience-item, .project-item');
+            if (target) {
+                showHighlight(target);
+                const title = target.querySelector('h4');
+                if (title) {
+                    title.style.color = 'var(--green)';
+                }
+                e.stopPropagation();
+            }
+        }
+
+        function handleMouseLeave(e) {
+            const related = e.relatedTarget;
+            if (!e.currentTarget.contains(related)) {
+                hideHighlight();
+                const title = e.currentTarget.querySelector('h4');
+                if (title) {
+                    title.style.color = ''; // Reset to original color
+                }
+            }
         }
 
         sections.forEach(section => {
-            section.addEventListener("mouseenter", () => showHighlight(section));
-            section.addEventListener("mouseleave", hideHighlight);
+            section.addEventListener("mouseenter", handleMouseEnter);
+            section.addEventListener("mouseleave", handleMouseLeave);
         });
 
         items.forEach(item => {
-            item.addEventListener("mouseenter", (e) => {
-                e.stopPropagation();
-                showHighlight(item);
-            });
-            item.addEventListener("mouseleave", (e) => {
-                e.stopPropagation();
-                hideHighlight();
-            });
+            item.addEventListener("mouseenter", handleMouseEnter);
+            item.addEventListener("mouseleave", handleMouseLeave);
+        });
+
+        // Flashlight effect
+        document.addEventListener('mousemove', (e) => {
+            flashlight.style.left = `${e.clientX}px`;
+            flashlight.style.top = `${e.clientY}px`;
         });
     </script>
 </body>
